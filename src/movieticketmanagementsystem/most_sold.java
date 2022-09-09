@@ -50,6 +50,12 @@ public class most_sold extends javax.swing.JFrame {
         jButton23 = new javax.swing.JButton();
         jButton25 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField6 = new javax.swing.JTextField();
+        jToggleButton4 = new javax.swing.JToggleButton();
+        jTextField8 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -179,6 +185,33 @@ public class most_sold extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel8.setText("in range");
+
+        jTextField6.setText("2022-09-11");
+        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField6ActionPerformed(evt);
+            }
+        });
+
+        jToggleButton4.setText("show");
+        jToggleButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton4ActionPerformed(evt);
+            }
+        });
+
+        jTextField8.setText("2022-10-11");
+        jTextField8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField8ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("START DATE");
+
+        jLabel7.setText("END DATE");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,8 +219,21 @@ public class most_sold extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jToggleButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton1))
@@ -213,7 +259,14 @@ public class most_sold extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel3)
+                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel7)
+                                .addComponent(jLabel8)
+                                .addComponent(jToggleButton4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(11, 11, 11))
@@ -244,7 +297,7 @@ public class most_sold extends javax.swing.JFrame {
             String query1 = "select *,COUNT(m_id) as m_num from list_tab GROUP BY m_nam, m_id order by m_num DESC;";
             PreparedStatement pst =  connection.prepareStatement(query1);
  
-            ResultSet rs=pst.executeQuery();
+            ResultSet rs = pst.executeQuery();
             DefaultTableModel dt =(DefaultTableModel)mTab.getModel();
             dt.setRowCount(0);
             while(rs.next()){
@@ -293,6 +346,58 @@ public class most_sold extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField6ActionPerformed
+
+    private void jToggleButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton4ActionPerformed
+
+        
+    try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        Connection connection = DriverManager.getConnection(
+                "jdbc:sqlserver://localhost:1433;databaseName=movie_ticket_v1;selectMethod=cursor", "sa", "123456");
+
+//             String query = "select mv_va.m_nam,m_id,COUNT(m_id) as m_num from ti_va left join mv_va ON mv_va.mv_id = ti_va.m_id WHERE ti_va.t_dt BETWEEN '2022-09-11' AND '2022-10-11' GROUP BY mv_va.m_nam,m_id order by m_num DESC";
+            String query = "select mv_va.m_nam,m_id,COUNT(m_id) as m_num from ti_va left join mv_va ON mv_va.mv_id = ti_va.m_id WHERE ti_va.t_dt BETWEEN ? AND ? GROUP BY mv_va.m_nam,m_id order by m_num DESC";
+             PreparedStatement pst =  connection.prepareStatement(query);
+
+              pst.setString(1, (String) jTextField6.getText());
+              pst.setString(2, (String) jTextField8.getText());
+              
+              
+//              pst.executeUpdate();
+              
+              
+//              PreparedStatement pst =  connection.prepareStatement(query);
+//            ResultSet rs = pst.executeQuery();
+            ResultSet rs = pst.executeQuery();
+            DefaultTableModel dt =(DefaultTableModel)mTab.getModel();
+            dt.setRowCount(0);
+            while(rs.next()){
+                Object o[] = {rs.getString("m_id"),rs.getString("m_nam"),rs.getInt("m_num")} ;
+                dt.addRow(o);
+              }
+//         }
+//              JOptionPane.showMessageDialog(null, "Inserted Successfully");
+            
+           } 
+            
+           
+            
+         catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "wrong Insert");
+     
+         }
+        
+        
+    }//GEN-LAST:event_jToggleButton4ActionPerformed
+
+    private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField8ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -337,11 +442,17 @@ public class most_sold extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JTable mTab;
     // End of variables declaration//GEN-END:variables
 }
